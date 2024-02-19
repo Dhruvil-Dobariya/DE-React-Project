@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
@@ -30,7 +30,7 @@ const Scanner = () => {
     axios
       .post("http://localhost:3001/StoreData", {
         data: [...scannedDataHistory],
-        subject,
+        subject: subject,
         date,
       })
       .then((response) => {
@@ -49,19 +49,19 @@ const Scanner = () => {
       });
   };
 
-  const [scannedData, setScannedData] = useState([]);
-
-  useEffect(() => {
+  const handleFinish = () => {
+    // Make a POST request to your server endpoint for finishing scanning
     axios
-      .get("http://localhost:3001/api/getData")
+      .post("/api/finishScanner", { subject, date })
       .then((response) => {
-        setScannedData(response.data);
+        console.log(response.data.message); // Assuming your server sends a message upon successful update
+        // Handle any UI updates or notifications here
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error finishing scanner:", error);
+        // Handle any error scenarios
       });
-  }, []);
-
+  };
   return (
     <div className="App">
       <h1>QR Code Scanner</h1>
@@ -108,27 +108,7 @@ const Scanner = () => {
         </ul>
       </div>
       <button onClick={handleAdd}>Add</button>
-      <div>
-        <p>final data</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Data</th>
-              <th>Subject</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {scannedData.map((item) => (
-              <tr key={item._id}>
-                <td>{item.data}</td>
-                <td>{item.subject}</td>
-                <td>{item.date}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <button onClick={handleFinish}>Finish</button>
     </div>
   );
 };

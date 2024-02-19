@@ -110,17 +110,13 @@ const Register = () => {
                 className="form-control"
                 onChange={(e) => setSubject(e.target.value)}
               >
-                <option value="maths-3">Maths-3</option>
-                <option value="Data Structure">Data Structure</option>
-                <option value="Operating System">Operating System</option>
-                <option value="Indian Constitution">Indian Constitution</option>
-                <option value="Python For Data Science">
-                  Python For Data Science
-                </option>
-                <option value="Software Engineering">
-                  Software Engineering
-                </option>
-                <option value="Computer Networks">Computer Networks</option>
+                <option value="DE_2B">DE_2B</option>
+                <option value="TOC">TOC</option>
+                <option value="AJP">AJP</option>
+                <option value="WP">WP</option>
+                <option value="MPI">MPI</option>
+                <option value="IOT">IOT</option>
+                <option value="IPDC">IPDC</option>
               </select>
             </div>
             <div className="mb-3 text-start">

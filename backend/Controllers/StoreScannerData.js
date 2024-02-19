@@ -1,23 +1,31 @@
 const ScannedData = require("../models/ScannedData");
 
 const StoreScannerData = (req, res) => {
-  const { data, subject, date } = req.body;
+  const { data, subject, date, status } = req.body;
+
+  // Define the collection name based on subject
+  const collectionName = `${subject}`;
+  const Model = require(`../models/All_Subject_Models/${collectionName}`);
 
   Promise.all(
     data.map((item) => {
-      return ScannedData.findOne({
+      return Model.findOne({
         data: item,
         subject: subject,
         date: date,
+        status: status,
       }).then((existingData) => {
         if (existingData) {
           console.log("Data already exists:", item);
           return Promise.resolve({ alreadyExists: true, data: item });
         } else {
-          return ScannedData.create({
+          // const Model = require("../models/All_Subject_Models/TOC");
+
+          return Model.create({
             data: item,
             subject: subject,
             date: date,
+            status: true,
           }).then(() => {
             return { alreadyExists: false, data: item };
           });
