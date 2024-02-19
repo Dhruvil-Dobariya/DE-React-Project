@@ -20,17 +20,11 @@ const FacultyHomePage = () => {
           Scan
         </Link>
       </button>
-      <button className="btn btn-light mb-2 ">
-        <Link to="/">Logout</Link>
-      </button>
       <button className="btn btn-light mb-2">
         <Link to="/allUsers">Show Users</Link>
       </button>
       <button className="btn btn-light mb-2">
         <Link to="/createUser">Add User</Link>
-      </button>
-      <button className="btn btn-light mb-2">
-        <Link to="/FacultyHomePage">Scan Now</Link>
       </button>
       <button className="btn btn-light mb-2">
         <Link to="/login">Logout</Link>

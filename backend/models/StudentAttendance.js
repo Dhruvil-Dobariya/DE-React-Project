@@ -1,10 +1,16 @@
 const mongoose = require("mongoose");
 
-const StudentAtSchema = mongoose.Schema({
-  result: Number,
-  Date: Date,
-  Subject: String,
+const StudentAttendance = new mongoose.Schema({
+  name: String,
+  En_num: Number,
+  subject: String,
+  date: Date,
+  status: Boolean,
 });
 
-const StudentAtModels = mongoose.model("Student-Attendance", StudentAtSchema);
-module.exports = StudentAtModels;
+const StudentAttendanceModel = mongoose.model(
+  "StudentAttendance",
+  StudentAttendance
+);
+
+module.exports = StudentAttendanceModel;

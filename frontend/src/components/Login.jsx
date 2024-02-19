@@ -20,7 +20,7 @@ const Login = () => {
           console.log("Login Success");
           alert("Login successful!");
           navigate("/StudentHomePage", {
-            state: { En_num, subject: result.data.subject },
+            state: { En_num },
           });
         } else {
           alert("Incorrect password! Please try again.");

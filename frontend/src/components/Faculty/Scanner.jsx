@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
@@ -28,7 +28,7 @@ const Scanner = () => {
 
   const handleAdd = () => {
     axios
-      .post("http://localhost:3001/api/addData", {
+      .post("http://localhost:3001/StoreData", {
         data: [...scannedDataHistory],
         subject,
         date,
@@ -48,6 +48,19 @@ const Scanner = () => {
         }
       });
   };
+
+  const [scannedData, setScannedData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/getData")
+      .then((response) => {
+        setScannedData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   return (
     <div className="App">
@@ -95,6 +108,27 @@ const Scanner = () => {
         </ul>
       </div>
       <button onClick={handleAdd}>Add</button>
+      <div>
+        <p>final data</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Subject</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {scannedData.map((item) => (
+              <tr key={item._id}>
+                <td>{item.data}</td>
+                <td>{item.subject}</td>
+                <td>{item.date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

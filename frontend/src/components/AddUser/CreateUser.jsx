@@ -18,13 +18,15 @@ const CreateUser = () => {
         En_num: En_num,
         password: password,
       })
-      .then((result) => {
-        console.log(result);
-        console.log(name, email, En_num, password);
-        alert("added");
+      .then((response) => {
+        console.log(response.data); // log the response data
+        alert("User added successfully");
         navigate("/allUsers");
       })
-      .catch((err) => console.log(err), alert("not added"));
+      .catch((error) => {
+        console.error("Error adding user:", error);
+        alert("Failed to add user");
+      });
   };
 
   return (
