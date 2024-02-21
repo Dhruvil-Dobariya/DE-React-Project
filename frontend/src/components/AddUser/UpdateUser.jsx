@@ -69,7 +69,7 @@ const UpdateUser = () => {
             <label htmlFor="">En_num</label>
             <input
               type="text"
-              placeholder="Enter Age"
+              placeholder="Enter Enrollment Number"
               className="form-control"
               value={En_num}
               required

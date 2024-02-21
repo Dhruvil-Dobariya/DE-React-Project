@@ -15,9 +15,14 @@ const GetStudentController = require("./Controllers/AddStudents/GetStudent.contr
 const GetStudentById = require("./Controllers/AddStudents/GetStudentById");
 
 const StoreScannerData = require("./Controllers/StoreScannerData");
+const AddAbsent = require("./Controllers/AddAbsent");
 
 const app = express();
 app.use(express.json());
+app.use((req, res, next) => {
+  req.db = mongoose.connection;
+  next();
+});
 app.use(cors());
 
 mongoose.connect("mongodb://127.0.0.1:27017/DE-Project");
@@ -36,6 +41,7 @@ app.post("/createUser", AddStudentController);
 
 /****************Attendance  Start***************/
 app.post("/StoreData", StoreScannerData);
+app.post("/AddAbsent", AddAbsent);
 
 app.listen(3001, () => {
   console.log("Server listining on http://127.0.0.1:3001");

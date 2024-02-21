@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
 const DE_2BSchema = new mongoose.Schema({
-  data: [String],
+  data: String,
   subject: String,
   date: String,
+  status: Boolean,
 });
 const DE_2BModel = mongoose.model("TOC", DE_2BSchema);
 
