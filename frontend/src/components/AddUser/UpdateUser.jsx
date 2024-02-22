@@ -73,7 +73,6 @@ const UpdateUser = () => {
               className="form-control"
               value={En_num}
               required
-              minLength={12}
               maxLength={12}
               onChange={(e) => setEn_num(e.target.value)}
             />

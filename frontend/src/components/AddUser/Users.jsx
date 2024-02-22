@@ -40,7 +40,6 @@ const Users = () => {
           <tbody>
             {users.map((user, id) => {
               return (
-                // eslint-disable-next-line react/jsx-key
                 <tr key={id}>
                   <td>{user.name}</td>
                   <td>{user.email}</td>

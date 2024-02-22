@@ -18,7 +18,7 @@ const Login = () => {
         console.log(result);
         if (result.data === "Success") {
           console.log("Login Success");
-          alert("Login successful!");
+          // alert("Login successful!");
           navigate("/StudentHomePage", {
             state: { En_num },
           });
@@ -37,7 +37,7 @@ const Login = () => {
         console.log(result);
         if (result.data.status === "Success") {
           console.log("Login Success");
-          alert("Login successful!");
+          // alert("Login successful!");
           navigate("/FacultyHomePage", {
             state: { subject: result.data.subject, email: result.data.email },
           });
@@ -54,13 +54,7 @@ const Login = () => {
 
   return (
     <div>
-      <div
-        className="d-flex justify-content-center align-items-center text-center vh-100"
-        style={{
-          backgroundImage:
-            "linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))",
-        }}
-      >
+      <div className="d-flex justify-content-center align-items-center text-center vh-100">
         <div className="bg-white p-3 rounded" style={{ width: "40%" }}>
           <h2 className="mb-3 text-primary">Login</h2>
 

@@ -21,10 +21,15 @@ const FacultyHomePage = () => {
         </Link>
       </button>
       <button className="btn btn-light mb-2">
-        <Link to="/allUsers">Show Users</Link>
+        <Link to="/allUsers">Show Students</Link>
       </button>
       <button className="btn btn-light mb-2">
-        <Link to="/createUser">Add User</Link>
+        <Link to="/createUser">Add Students</Link>
+      </button>
+      <button className="btn btn-light mb-2">
+        <Link to="/ShowRecords" state={{ Subject, date }}>
+          Show Records
+        </Link>
       </button>
       <button className="btn btn-light mb-2">
         <Link to="/login">Logout</Link>

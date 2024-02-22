@@ -19,7 +19,7 @@ const CreateUser = () => {
         password: password,
       })
       .then((response) => {
-        console.log(response.data); // log the response data
+        console.log(response.data);
         alert("User added successfully");
         navigate("/allUsers");
       })
@@ -33,7 +33,7 @@ const CreateUser = () => {
     <div className="d-flex vh-100 bg-info justify-content-center align-items-center">
       <div className="w-75 bg-white rounded p-3">
         <form onSubmit={submit}>
-          <h2>Add User</h2>
+          <h2>Add Student</h2>
           <div className="mb-2">
             <label htmlFor="">Name</label>
             <input

@@ -3,7 +3,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Scanner = () => {
   const location = useLocation();
@@ -122,6 +122,13 @@ const Scanner = () => {
           </ul>
         </div>
       )}
+      <div>
+        <button>
+          <Link to="/ShowRecords" state={subject}>
+            Show Records
+          </Link>
+        </button>
+      </div>
     </div>
   );
 };

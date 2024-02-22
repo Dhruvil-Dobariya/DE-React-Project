@@ -4,18 +4,18 @@ const mongoose = require("mongoose");
 
 const FacultyLoginController = require("./Controllers/Login-Register/Facultylogin.controller");
 const FacultyRegisterController = require("./Controllers/Login-Register/FacultyRegister.controller");
-
 const StudentLoginController = require("./Controllers/Login-Register/StudentLogin.controller");
 
 const AddStudentController = require("./Controllers/AddStudents/AddStudent.controller");
 const DeleteStudentController = require("./Controllers/AddStudents/DeleteStudent.controller");
 const UpdateStudentController = require("./Controllers/AddStudents/UpdateStudent.controller");
-
 const GetStudentController = require("./Controllers/AddStudents/GetStudent.controller");
 const GetStudentById = require("./Controllers/AddStudents/GetStudentById");
 
 const StoreScannerData = require("./Controllers/StoreScannerData");
 const AddAbsent = require("./Controllers/AddAbsent");
+const ShowRecords = require("./Controllers/ShowRecords");
+const StudentRecords = require("./Controllers/StudentRecords");
 
 const app = express();
 app.use(express.json());
@@ -39,24 +39,12 @@ app.put("/updateUser/:id", UpdateStudentController);
 app.delete("/deleteUser/:id", DeleteStudentController);
 app.post("/createUser", AddStudentController);
 
-/****************Attendance  Start***************/
+/****************Attendance Data***************/
 app.post("/StoreData", StoreScannerData);
 app.post("/AddAbsent", AddAbsent);
+app.get("/ShowRecords", ShowRecords);
+app.get("/StoreData/:subject", StudentRecords);
 
 app.listen(3001, () => {
   console.log("Server listining on http://127.0.0.1:3001");
 });
-
-// app.get("/getUser/:email", async (req, res) => {
-//   const { email } = req.params;
-//   try {
-//     const user = await FacultyLoginsModel.findOne({ email });
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-//     res.json({ subject: user.subject });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: "Server Error" });
-//   }
-// });

@@ -13,6 +13,11 @@ const StudentHomePage = () => {
       <br />
       <br />
       <button>
+        <Link to="/StudentRecords" state={Num}>
+          Show Records
+        </Link>
+      </button>
+      <button>
         <Link to="/">Logout</Link>
       </button>
     </div>
