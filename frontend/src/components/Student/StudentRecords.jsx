@@ -5,22 +5,34 @@ import { useLocation } from "react-router-dom";
 const StudentRecords = () => {
   const [selectedSubject, setSelectedSubject] = useState("");
   const [subjectData, setSubjectData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const location = useLocation();
-
   const En_num = location.state;
 
   const fetchData = (subject, En_num) => {
+    setLoading(true);
+    setError("");
+    setSubjectData([]); // Clear previous data
+
     axios
       .get(`http://localhost:3001/StoreData/${subject}`, {
         params: { En_num: En_num, subject: selectedSubject },
       })
       .then((response) => {
-        setSubjectData(response.data);
-        console.log(response.data);
+        if (response.data.length === 0) {
+          setError("No data found");
+        } else {
+          setSubjectData(response.data);
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        setError("Error fetching data");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -34,7 +46,7 @@ const StudentRecords = () => {
     <div>
       <h1>Student Page</h1>
       <hr />
-      <select onChange={(e) => setSelectedSubject(e.target.value)}>
+      <select onChange={(e) => setSelectedSubject(e.target.value)} value={selectedSubject}>
         <option value="">Select Subject</option>
         <option value="TOC">TOC</option>
         <option value="DE_2B">DE_2B</option>
@@ -45,7 +57,11 @@ const StudentRecords = () => {
         <option value="IPDC">IPDC</option>
       </select>
 
-      {subjectData.length > 0 && (
+      {loading && <p>Loading...</p>}
+
+      {!loading && selectedSubject && error && <p>{error}</p>}
+
+      {!loading && subjectData.length > 0 && (
         <div>
           <h2>Data for {selectedSubject}</h2>
           {subjectData.map((data, index) => (
