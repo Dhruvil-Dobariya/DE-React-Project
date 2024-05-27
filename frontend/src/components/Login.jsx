@@ -37,7 +37,7 @@ const Login = () => {
         console.log(result);
         if (result.data.status === "Success") {
           console.log("Login Success");
-          // alert("Login successful!");
+          alert("Login successful!");
           navigate("/FacultyHomePage", {
             state: { subject: result.data.subject, email: result.data.email },
           });
