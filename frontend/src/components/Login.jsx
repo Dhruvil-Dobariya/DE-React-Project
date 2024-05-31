@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import "../Styles/Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -53,92 +54,91 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className="d-flex justify-content-center align-items-center text-center vh-100">
-        <div className="bg-white p-3 rounded" style={{ width: "40%" }}>
-          <h2 className="mb-3 text-primary">Login</h2>
+    <div className="containers">
+      <h2 style={{ fontSize: "30px" }}>Login</h2>
 
-          <div>
-            Role
+      <div className="role-selection">
+        <label htmlFor="role-student">Role</label>
+        <input
+          type="radio"
+          name="role"
+          id="role-student"
+          value="Student"
+          defaultChecked
+          required
+          onChange={(e) => setRole(e.target.value)}
+        />
+        <label htmlFor="role-student">Student</label>
+        <input
+          type="radio"
+          name="role"
+          id="role-faculty"
+          value="Faculty"
+          onChange={(e) => setRole(e.target.value)}
+        />
+        <label htmlFor="role-faculty">Faculty</label>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        {role === "Student" ? (
+          <div className="student-field">
+            <label htmlFor="En_num">
+              <strong>Enrollment Number</strong>
+            </label>
             <input
-              type="radio"
-              name="role"
-              value="Student"
-              defaultChecked
+              type="number"
+              placeholder="Enter Enrollment Number"
+              id="En_num"
+              minLength={12}
+              maxLength={12}
+              onChange={(event) => setEn_num(event.target.value)}
               required
-              onChange={(e) => setRole(e.target.value)}
             />
-            Student
-            <input
-              type="radio"
-              name="role"
-              value="Faculty"
-              onChange={(e) => setRole(e.target.value)}
-            />
-            Faculty
           </div>
+        ) : (
+          <div className="faculty-field">
+            <label htmlFor="exampleInputEmail1">
+              <strong>Email Id</strong>
+            </label>
+            <input
+              type="email"
+              placeholder="Enter Email"
+              id="exampleInputEmail1"
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
+          </div>
+        )}
 
-          <form onSubmit={handleSubmit}>
-            {role === "Student" ? (
-              <div className="mb-3 text-start">
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  <strong>Enrollment Number</strong>
-                </label>
-                <input
-                  type="number"
-                  placeholder="Enter Enrollment Number"
-                  className="form-control"
-                  id="En_num"
-                  minLength={12}
-                  maxLength={12}
-                  onChange={(event) => setEn_num(event.target.value)}
-                  required
-                />
-              </div>
-            ) : (
-              <div className="mb-3 text-start">
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  <strong>Email Id</strong>
-                </label>
-                <input
-                  type="email"
-                  placeholder="Enter Email"
-                  className="form-control"
-                  id="exampleInputEmail1"
-                  onChange={(event) => setEmail(event.target.value)}
-                  required
-                />
-              </div>
-            )}
+        <div className="password-field">
+          <label htmlFor="exampleInputPassword1">
+            <strong>Password</strong>
+          </label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            id="exampleInputPassword1"
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+        </div>
 
-            <div className="mb-3 text-start">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                <strong>Password</strong>
-              </label>
-              <input
-                type="password"
-                placeholder="Enter Password"
-                className="form-control"
-                id="exampleInputPassword1"
-                onChange={(event) => setPassword(event.target.value)}
-                required
-              />
-            </div>
+        <button
+          type="submit"
+          onClick={role === "Student" ? UserLogin : FacultyLogin}
+        >
+          Login
+        </button>
+      </form>
 
-            <button
-              type="submit"
-              className="btn btn-primary"
-              onClick={role === "Student" ? UserLogin : FacultyLogin}
-            >
-              Login
-            </button>
-          </form>
-          <p className="container my-2">Don&apos;t have an account?</p>
-          <Link to="/register" className="btn btn-secondary">
+      <p>
+        <div className="end">
+          Don&apos;t have an account? &nbsp;
+          <Link className="register-link" to="/register">
             Register
           </Link>
         </div>
-      </div>
+      </p>
     </div>
   );
 };

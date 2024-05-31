@@ -14,12 +14,11 @@ const StoreScannerData = (req, res) => {
         console.log("Data already exists:", data);
         res.status(400).json({ error: "Data already exists", data });
       } else {
-        // Save the item as a string instead of an array
         Model.create({
           data: data,
           subject: subject,
           date: date,
-          status: "true", // assuming status is a string in the database
+          status: "true", 
         })
           .then(() => {
             console.log("Data added successfully:", data);

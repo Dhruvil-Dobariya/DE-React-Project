@@ -6,6 +6,6 @@ const AJPSchema = new mongoose.Schema({
   date: String,
   status: Boolean,
 });
-const AJPModel = mongoose.model("TOC", AJPSchema);
+const AJPModel = mongoose.model("AJP", AJPSchema);
 
 module.exports = AJPModel;

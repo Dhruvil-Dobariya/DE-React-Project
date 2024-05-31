@@ -39,7 +39,6 @@ app.put("/updateUser/:id", UpdateStudentController);
 app.delete("/deleteUser/:id", DeleteStudentController);
 app.post("/createUser", AddStudentController);
 
-/****************Attendance Data***************/
 app.post("/StoreData", StoreScannerData);
 app.post("/AddAbsent", AddAbsent);
 app.get("/ShowRecords", ShowRecords);

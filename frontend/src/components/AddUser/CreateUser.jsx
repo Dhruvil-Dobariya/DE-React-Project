@@ -1,12 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../../Styles/CreateUser.css";
 
 const CreateUser = () => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [En_num, setEn_num] = useState();
-  const [password, setPassword] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [En_num, setEn_num] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const submit = (e) => {
@@ -30,57 +31,59 @@ const CreateUser = () => {
   };
 
   return (
-    <div className="d-flex vh-100 bg-info justify-content-center align-items-center">
-      <div className="w-75 bg-white rounded p-3">
-        <form onSubmit={submit}>
-          <h2>Add Student</h2>
-          <div className="mb-2">
-            <label htmlFor="">Name</label>
-            <input
-              type="text"
-              placeholder="Enter Name"
-              className="form-control"
-              required
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="">Email</label>
-            <input
-              type="text"
-              placeholder="Enter Email"
-              className="form-control"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="">Enrollment Number</label>
-            <input
-              type="number"
-              placeholder="Enter Enrollment Number"
-              className="form-control"
-              required
-              minLength={12}
-              maxLength={12}
-              onChange={(e) => setEn_num(e.target.value)}
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="">Password</label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              className="form-control"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit" className="btn btn-success">
-            Submit
-          </button>
-        </form>
-      </div>
+    <div className="form-container">
+      <form onSubmit={submit}>
+        <h2 style={{ fontSize: "30px" }}>Add Student</h2>
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            placeholder="Enter Name"
+            className="form-control"
+            required
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter Email"
+            className="form-control"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="en_num">Enrollment Number</label>
+          <input
+            type="text"
+            id="en_num"
+            placeholder="Enter Enrollment Number"
+            className="form-control"
+            required
+            minLength={12}
+            maxLength={12}
+            onChange={(e) => setEn_num(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            className="form-control"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit" className="btn btn-success">
+          Submit
+        </button>
+      </form>
     </div>
   );
 };

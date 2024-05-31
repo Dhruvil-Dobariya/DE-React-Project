@@ -1,27 +1,28 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../../Styles/UpdateUser.css";
 
 const UpdateUser = () => {
   const { id } = useParams();
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [En_num, setEn_num] = useState();
-  const [password, setPassword] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [En_num, setEn_num] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get("http://localhost:3001/getUser/" + id)
       .then((result) => {
-        console.log(result);
-        setName(result.data.name);
-        setEmail(result.data.email);
-        setEn_num(result.data.En_num);
-        setPassword(result.data.password);
+        const userData = result.data;
+        setName(userData.name);
+        setEmail(userData.email);
+        setEn_num(userData.En_num);
+        setPassword(userData.password);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   const update = (e) => {
     e.preventDefault();
@@ -32,65 +33,63 @@ const UpdateUser = () => {
         En_num: En_num,
         password: password,
       })
-      .then((result) => {
-        console.log(result);
+      .then(() => {
         navigate("/allUsers");
       })
       .catch((err) => console.log(err));
   };
+
   return (
-    <div className="d-flex vh-100 bg-info justify-content-center align-items-center">
-      <div className="w-75 bg-white rounded p-3">
-        <form onSubmit={update}>
-          <h2>Update User</h2>
-          <div className="mb-2">
-            <label htmlFor="">Name</label>
-            <input
-              type="text"
-              placeholder="Enter Name"
-              className="form-control"
-              value={name}
-              required
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="">Email</label>
-            <input
-              type="text"
-              placeholder="Enter Email"
-              className="form-control"
-              value={email}
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="">En_num</label>
-            <input
-              type="text"
-              placeholder="Enter Enrollment Number"
-              className="form-control"
-              value={En_num}
-              required
-              maxLength={12}
-              onChange={(e) => setEn_num(e.target.value)}
-            />
-          </div>
-          <div className="mb-2">
-            <label htmlFor="">Password</label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              className="form-control"
-              value={password}
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button className="btn btn-success">Update</button>
-        </form>
-      </div>
+    <div className="update-user-container">
+      <form className="update-user-form" onSubmit={update}>
+        <h2 style={{ fontSize: "30px" }}>Update User</h2>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            placeholder="Enter Name"
+            value={name}
+            required
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter Email"
+            value={email}
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="enrollment">Enrollment Number</label>
+          <input
+            type="text"
+            id="enrollment"
+            placeholder="Enter Enrollment Number"
+            value={En_num}
+            required
+            maxLength={12}
+            onChange={(e) => setEn_num(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            value={password}
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit">Update</button>
+      </form>
     </div>
   );
 };

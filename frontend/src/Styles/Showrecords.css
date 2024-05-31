@@ -1,0 +1,121 @@
+.show-records-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+  min-height: 98vh;
+  height: 98vh;
+}
+
+.show-records-container h1 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.show-records-container p {
+  font-size: 18px;
+  color: #666;
+}
+
+.table-container {
+  width: 94vw;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.table-container::-webkit-scrollbar {
+  display: none;
+}
+
+.show-records-table {
+  width: 96vw;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.show-records-table th,
+.show-records-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.show-records-table th {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+.show-records-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.mobile-sort-button {
+  display: none;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 5px;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.mobile-sort-button button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.mobile-sort-button button:hover {
+  background-color: #45a049;
+}
+
+@media (max-width: 600px) {
+  .show-records-table thead tr {
+    display: none;
+  }
+
+  .show-records-table tr {
+    margin-bottom: 15px;
+  }
+
+  .show-records-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .show-records-table td::before {
+    content: attr(data-label);
+    flex-basis: 50%;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .show-records-table {
+    width: 95vw;
+  }
+
+  .mobile-sort-button {
+    display: flex;
+    justify-content: center;
+  }
+
+  .table-container {
+    margin-top: 0px;
+  }
+}

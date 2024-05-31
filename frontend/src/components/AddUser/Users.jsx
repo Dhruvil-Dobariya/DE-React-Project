@@ -1,70 +1,131 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FaSort } from "react-icons/fa";
+import { GrUpdate } from "react-icons/gr";
+import { MdOutlineDeleteForever } from "react-icons/md";
+import "../../Styles/AllStudents.css";
 
 const Users = () => {
+  const navigate = useNavigate();
+
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: "ascending",
+  });
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/allUsers")
-      .then((result) => setUsers(result.data), console.log(users))
-      .catch((err) => console.log(err));
+    const fetchData = async () => {
+      try {
+        const result = await axios.get("http://localhost:3001/allUsers");
+        setUsers(result.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, []);
 
-  const handleDelete = (id) => {
-    axios
-      .delete("http://localhost:3001/deleteUser/" + id)
-      .then((res) => {
-        console.log(res);
-        window.location.reload();
-      })
-      .catch((err) => console.log(err));
+  const sortedUsers = [...users];
+
+  if (sortConfig.key !== null) {
+    sortedUsers.sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === "ascending" ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === "ascending" ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+
+  const requestSort = (key) => {
+    let direction = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
   };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      axios
+        .delete("http://localhost:3001/deleteUser/" + id)
+        .then((res) => {
+          console.log(res);
+          window.location.reload();
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   return (
-    <div className="d-flex vh-100 bg-info bg-gradient justify-content-center align-items-center">
-      <div className="w-75 bg-white rounded p-3">
-        <Link to="/createUser" className="btn btn-success">
-          Add
-        </Link>
-        <table className="table">
-          <thead>
-            <tr className="flex">
-              <th>Name</th>
-              <th>Email</th>
-              <th>Enrollment Number</th>
-              <th>Password</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, id) => {
-              return (
-                <tr key={id}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.En_num}</td>
-                  <td>{user.password}</td>
-                  <td>
-                    <Link
-                      to={`/updateUser/${user._id}`}
-                      className="btn btn-info m-1"
-                    >
-                      Update
-                    </Link>
-                    <button
-                      className="btn btn-danger m-1"
-                      onClick={() => handleDelete(user._id)}
-                    >
-                      Delete
-                    </button>
+    <div className="show-records-container">
+      <h1>All Students</h1>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="table-container">
+          <div className="top-button">
+            <button className="back" onClick={() => navigate(-1)}>
+              Back
+            </button>
+            <button className="add" onClick={() => navigate("/createUser")}>
+              Add
+            </button>
+          </div>
+          <table className="show-records-table">
+            <thead>
+              <tr>
+                <th onClick={() => requestSort("name")}>
+                  Name <FaSort />
+                </th>
+                <th onClick={() => requestSort("email")}>
+                  Email <FaSort />
+                </th>
+                <th onClick={() => requestSort("En_num")}>
+                  En. Number <FaSort />
+                </th>
+                <th onClick={() => requestSort("password")}>
+                  Password <FaSort />
+                </th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedUsers.map((user, index) => (
+                <tr key={index}>
+                  <td data-label="Name">{user.name}</td>
+                  <td data-label="Email">{user.email}</td>
+                  <td data-label="En. Number">{user.En_num}</td>
+                  <td data-label="Password">{user.password}</td>
+                  <td data-label="Action">
+                    <div className="buttons">
+                      <button className="update-btn update">
+                        <Link to={`/updateUser/${user._id}`}>
+                          <GrUpdate />
+                        </Link>
+                      </button>
+
+                      <button
+                        className="delete-btn delete"
+                        onClick={() => handleDelete(user._id)}
+                      >
+                        <MdOutlineDeleteForever className="delete-icon" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

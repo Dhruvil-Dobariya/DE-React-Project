@@ -6,6 +6,6 @@ const DE_2BSchema = new mongoose.Schema({
   date: String,
   status: Boolean,
 });
-const DE_2BModel = mongoose.model("TOC", DE_2BSchema);
+const DE_2BModel = mongoose.model("DE_2B", DE_2BSchema);
 
 module.exports = DE_2BModel;
