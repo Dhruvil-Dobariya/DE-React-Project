@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 });
 app.use(cors());
 
-mongoose.connect("mongodb://127.0.0.1:27017/DE-Project");
+mongoose.connect("mongodb://localhost:27017/DE-Project");
 
 /****************LOGIN/REGISTERS***************/
 app.post("/register", FacultyRegisterController);
