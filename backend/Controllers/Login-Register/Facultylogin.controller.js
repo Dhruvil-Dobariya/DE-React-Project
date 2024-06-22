@@ -6,7 +6,8 @@ const FacultyLoginController = (req, res) => {
   FacultyLoginsModel.findOne({ email: email })
     .then((user) => {
       if (user) {
-        if (user.password === password) {
+        const isPassword = user.comparePassword(password);
+        if (isPassword) {
           res.json({
             status: "Success",
             subject: user.subject,
