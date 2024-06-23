@@ -6,7 +6,7 @@ import { GrUpdate } from "react-icons/gr";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import "../../Styles/AllStudents.css";
 
-const Users = () => {
+const AllFaculty = () => {
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
@@ -19,7 +19,7 @@ const Users = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get("http://localhost:3001/allUsers");
+        const result = await axios.get("http://localhost:3001/AllFaculty");
         setUsers(result.data);
         setLoading(false);
       } catch (error) {
@@ -55,7 +55,7 @@ const Users = () => {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       axios
-        .delete("http://localhost:3001/deleteUser/" + id)
+        .delete("http://localhost:3001/deleteFaculty/" + id)
         .then((res) => {
           console.log(res);
           window.location.reload();
@@ -88,12 +88,10 @@ const Users = () => {
                 <th onClick={() => requestSort("email")}>
                   Email <FaSort />
                 </th>
-                <th onClick={() => requestSort("En_num")}>
-                  En. Number <FaSort />
+                <th onClick={() => requestSort("subject")}>
+                  Subject <FaSort />
                 </th>
-                {/* <th onClick={() => requestSort("password")}>
-                  Password <FaSort />
-                </th> */}
+
                 <th>Action</th>
               </tr>
             </thead>
@@ -102,12 +100,11 @@ const Users = () => {
                 <tr key={index}>
                   <td data-label="Name">{user.name}</td>
                   <td data-label="Email">{user.email}</td>
-                  <td data-label="En. Number">{user.En_num}</td>
-                  {/* <td data-label="Password">{user.password}</td> */}
+                  <td data-label="En. Number">{user.subject}</td>
                   <td data-label="Action">
                     <div className="buttons">
                       <button className="update-btn update">
-                        <Link to={`/updateUser/${user._id}`}>
+                        <Link to={`/updateFaculty/${user._id}`}>
                           <GrUpdate />
                         </Link>
                       </button>
@@ -130,4 +127,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default AllFaculty;

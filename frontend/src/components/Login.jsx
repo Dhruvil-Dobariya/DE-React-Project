@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "../Styles/Login.css";
 
 const Login = () => {
-  const [email, setEmail] = useState();
-  const [En_num, setEn_num] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [En_num, setEn_num] = useState("");
+  const [password, setPassword] = useState("");
   const [role, setRole] = useState("Student");
 
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Login = () => {
         console.log(result);
         if (result.data === "Success") {
           console.log("Login Success");
-          // alert("Login successful!");
+          alert("Login successful!");
           navigate("/StudentHomePage", {
             state: { En_num },
           });
@@ -49,14 +49,31 @@ const Login = () => {
       .catch((err) => console.log(err));
   };
 
+  const AdminLogin = (e) => {
+    e.preventDefault();
+    if (email === "admin123@gmail.com" && password === "Admin@123") {
+      console.log("Login Success");
+      alert("Login successful!");
+      navigate("/AdminHomePage");
+    } else {
+      alert("Incorrect admin credentials! Please try again.");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (role === "Student") {
+      UserLogin(e);
+    } else if (role === "Faculty") {
+      FacultyLogin(e);
+    } else if (role === "Admin") {
+      AdminLogin(e);
+    }
   };
 
   return (
     <div className="containers">
       <h2 style={{ fontSize: "30px" }}>Login</h2>
-
       <div className="role-selection">
         <label htmlFor="role-student">Role</label>
         <input
@@ -77,6 +94,15 @@ const Login = () => {
           onChange={(e) => setRole(e.target.value)}
         />
         <label htmlFor="role-faculty">Faculty</label>
+
+        <input
+          type="radio"
+          name="role"
+          id="role-admin"
+          value="Admin"
+          onChange={(e) => setRole(e.target.value)}
+        />
+        <label htmlFor="role-admin">Admin</label>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -96,7 +122,7 @@ const Login = () => {
             />
           </div>
         ) : (
-          <div className="faculty-field">
+          <div className="faculty-admin-field">
             <label htmlFor="exampleInputEmail1">
               <strong>Email Id</strong>
             </label>
@@ -123,22 +149,8 @@ const Login = () => {
           />
         </div>
 
-        <button
-          type="submit"
-          onClick={role === "Student" ? UserLogin : FacultyLogin}
-        >
-          Login
-        </button>
+        <button type="submit">Login</button>
       </form>
-
-      <p>
-        <div className="end">
-          Don&apos;t have an account? &nbsp;
-          <Link className="register-link" to="/register">
-            Register
-          </Link>
-        </div>
-      </p>
     </div>
   );
 };

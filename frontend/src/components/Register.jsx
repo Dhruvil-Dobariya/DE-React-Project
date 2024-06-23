@@ -54,7 +54,7 @@ const Register = () => {
               <strong>Faculty Key</strong>
             </label>
             <input
-              type="text"
+              type="password"
               placeholder="Faculty Key"
               required
               onChange={(e) => setFacultyKey(e.target.value)}

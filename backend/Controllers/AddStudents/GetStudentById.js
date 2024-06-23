@@ -1,3 +1,5 @@
+const addStudentsModels = require("../../models/AllUser");
+
 const GetStudentById = (req, res) => {
   const id = req.params.id;
   addStudentsModels

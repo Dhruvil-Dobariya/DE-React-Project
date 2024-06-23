@@ -1,6 +1,7 @@
 const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const FacultyLoginController = require("./Controllers/Login-Register/Facultylogin.controller");
 const FacultyRegisterController = require("./Controllers/Login-Register/FacultyRegister.controller");
@@ -17,6 +18,12 @@ const AddAbsent = require("./Controllers/AddAbsent");
 const ShowRecords = require("./Controllers/ShowRecords");
 const StudentRecords = require("./Controllers/StudentRecords");
 
+const AddFacController = require("./Controllers/Admin/CreateFac");
+const AllFaculty = require("./Controllers/Admin/AllFaculty");
+const DeleteFaculty = require("./Controllers/Admin/DeleteFaculty");
+const UpdateFaculty = require("./Controllers/Admin/UpdateFaculty");
+const GetFacultyById = require("./Controllers/Admin/GetFacultyById");
+
 const app = express();
 app.use(express.json());
 app.use((req, res, next) => {
@@ -25,7 +32,7 @@ app.use((req, res, next) => {
 });
 app.use(cors());
 
-mongoose.connect("mongodb://localhost:27017/DE-Project");
+mongoose.connect(process.env.DB_URL);
 
 /****************LOGIN/REGISTERS***************/
 app.post("/register", FacultyRegisterController);
@@ -44,6 +51,13 @@ app.post("/AddAbsent", AddAbsent);
 app.get("/ShowRecords", ShowRecords);
 app.get("/StoreData/:subject", StudentRecords);
 
+/*****************Add Faculty ******************/
+app.get("/AllFaculty", AllFaculty);
+app.post("/createFac", AddFacController);
+app.get("/getFaculty/:id", GetFacultyById);
+app.delete("/deleteFaculty/:id", DeleteFaculty);
+app.put("/updateFaculty/:id", UpdateFaculty);
+
 app.listen(3001, () => {
-  console.log("Server listining on http://127.0.0.1:3001");
+  console.log("Server Is Running...");
 });

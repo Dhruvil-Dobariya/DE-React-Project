@@ -1,11 +1,14 @@
 const addStudentsModels = require("../../models/AllUser");
 
-const DeleteStudentController = (req, res) => {
+const DeleteStudentController = async (req, res) => {
   const id = req.params.id;
-  addStudentsModels
-    .findByIdAndDelete({ _id: id })
-    .then((res) => res.json(res))
-    .catch((err) => res.json(err));
+  
+  try {
+    const result = await addStudentsModels.findByIdAndDelete({ _id: id });
+    res.json(result);
+  } catch (err) {
+    res.json(err);
+  }
 };
 
 module.exports = DeleteStudentController;
