@@ -19,7 +19,7 @@ const AdminHomePage = () => {
         <Link to="/allFaculty" className="btn">
           Show Faculties
         </Link>
-        <Link to="/StudentRecords" className="btn">
+        <Link to="/AllRecords" className="btn">
           Show Records
         </Link>
         <Link to="/login" className="btn">

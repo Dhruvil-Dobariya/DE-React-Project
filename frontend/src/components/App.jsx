@@ -13,6 +13,7 @@ import AddFac from "./Admin/AddFac";
 import AdminHomePage from "./Admin/AdminHomePage";
 import AllFaculty from "./Admin/AllFaculty";
 import UpdateFaculty from "./Admin/UpdateFaculty";
+import AllRecords from "./Admin/AllRecords";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/createFac" element={<AddFac />} />
           <Route path="/updateFaculty/:id" element={<UpdateFaculty />} />
           <Route path="/allFaculty" element={<AllFaculty />} />
+          <Route path="/AllRecords" element={<AllRecords />} />
         </Routes>
       </BrowserRouter>
     </div>

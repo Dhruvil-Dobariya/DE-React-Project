@@ -22,7 +22,7 @@ const AddFac = () => {
       .then((response) => {
         console.log(response.data);
         alert("User added successfully");
-        navigate("/allUsers");
+        navigate("/allFaculty");
       })
       .catch((error) => {
         console.error("Error adding user:", error);
@@ -55,9 +55,21 @@ const AddFac = () => {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
+        </div>{" "}
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            className="form-control"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
         <div className="form-group">
           <label htmlFor="subject">Subject</label>
+          <br />
           <select
             id="subject"
             name="subject"
@@ -72,18 +84,6 @@ const AddFac = () => {
             <option value="IOT">IOT</option>
             <option value="IPDC">IPDC</option>
           </select>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter Password"
-            className="form-control"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
         </div>
         <button type="submit" className="btn btn-success">
           Submit

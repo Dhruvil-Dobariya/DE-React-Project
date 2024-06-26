@@ -15,15 +15,13 @@ const StudentHomePage = () => {
           <QRCode className="qr" value={Num} size={250} />
           <br />
           <br />
-          <button>
-            <Link className="btns" to="/StudentRecords" state={Num}>
+          <button className="btnss">
+            <Link to="/StudentRecords" state={Num}>
               Show Records
             </Link>
           </button>
-          <button>
-            <Link className="btns" to="/">
-              Logout
-            </Link>
+          <button className="btnss">
+            <Link to="/">Logout</Link>
           </button>
         </div>
       </div>

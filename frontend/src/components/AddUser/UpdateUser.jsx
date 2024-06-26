@@ -42,7 +42,7 @@ const UpdateUser = () => {
   return (
     <div className="update-user-container">
       <form className="update-user-form" onSubmit={update}>
-        <h2 style={{ fontSize: "30px" }}>Update User</h2>
+        <h2 style={{ fontSize: "30px" }}>Update Student</h2>
         <div>
           <label htmlFor="name">Name</label>
           <input

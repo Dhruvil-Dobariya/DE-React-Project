@@ -70,7 +70,7 @@ const StudentRecords = () => {
   };
 
   return (
-    <div className="student-records-container">
+    <div className="show-records-container">
       <h1>Student Records</h1>
       <hr />
       <select

@@ -66,7 +66,7 @@ const AllFaculty = () => {
 
   return (
     <div className="show-records-container">
-      <h1>All Students</h1>
+      <h1>All Faculty</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
